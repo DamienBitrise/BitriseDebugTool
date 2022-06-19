@@ -31,7 +31,7 @@
         <div class="header-right">
           <button class="bitriseButton bitriseButtonWide" id="download">Download Logs</button>
 
-          <button class="bitriseButton bitriseButtonWide" id="login">Login</button>
+          <button class="bitriseButton bitriseButtonWide" id="login">Sign Up</button>
         </div>
         <div class="spacer" style="clear: both;"></div>
       </div>
@@ -83,16 +83,37 @@
             <h4 class="modal-title">Modal title</h4>
           </div>
           <div class="modal-body">
-            <label class="bitriseLabel editor-label" for="api_key">Bitrise API Key:</label>
-            <input class="bitriseInput wide" type="text" id="api_key" value="">
-            <label class="bitriseLabel editor-label" for="password">Password:</label>
-            <input class="bitriseInput wide" type="password" id="password" value="">
-            <br>
-            <span class="subtitle">(Used to encrypt and store your API Key)</span>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="loginBtn">Login</button>
+            <div id="sign_up">
+              <label class="bitriseLabel editor-label" for="signup_api_key">Bitrise API Key:</label>
+              <input class="bitriseInput wide" type="text" id="signup_api_key" value="">
+              <label class="bitriseLabel editor-label" for="signup_password">Password:</label>
+              <input class="bitriseInput wide" type="password" id="signup_password" value="">
+              <br>
+              <span class="subtitle">(Used to encrypt and store your API Key)</span>
+            </div>
+            <div id="log_in" style="display: none;">
+              <label class="bitriseLabel editor-label" for="login_password">Password:</label>
+              <input class="bitriseInput wide" type="password" id="login_password" value="">
+              <br>
+              <span class="subtitle">(Your API Key is encrypted and must be unlocked)</span>
+            </div>
+
+            <div id="logged_in">
+              <label class="bitriseLabel editor-label" for="logged_in_api_key">Bitrise API Key:</label>
+              <input class="bitriseInput wide" type="text" id="logged_in_api_key" value="">
+              <label class="bitriseLabel editor-label" for="logged_in_password">Password:</label>
+              <input class="bitriseInput wide" type="password" id="logged_in_password" value="">
+              <br>
+              <span class="subtitle">(Reset your API Key)</span>
+              <br>
+              <button type="button" class="bitriseButton" data-dismiss="modal" id="deleteApiKeyBtn">Delete API Key</button>
+              <button type="button" class="bitriseButton" data-dismiss="modal" id="logged_in_logout">Log Out</button>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="bitriseButton" data-dismiss="modal">Close</button>
+              <button type="button" class="bitriseButton" data-dismiss="modal" id="loginBtn">Log In</button>
+            </div>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->

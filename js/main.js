@@ -3,9 +3,7 @@ window.onload = async function () {
   await loadEditor();
   populateStepSelect();
   addEventListeners();
-  getAPIKey('qqq', (decryptedData)=>{
-    console.log('decryptedData:', decryptedData);
-  });
+  hasAPIKey();
 };
 
 function populateStepSelect(){
@@ -96,9 +94,42 @@ function addEventListeners(){
 
   var loginModalBtn = document.getElementById("loginBtn");
   loginModalBtn.addEventListener("click", function() {
-    let api_key = document.getElementById('api_key').value;
-    let password = document.getElementById('password').value;
-    saveAPIKey(password, api_key);
+    if(VAULT_STATE == 0){ // NO ACCOUNT
+      let api_key = document.getElementById('signup_api_key').value;
+      let password = document.getElementById('signup_password').value;
+      if(password.length < 8){
+        alert('Error your password must be at least 8 charecters long.');
+      } else {
+        saveAPIKey(password, api_key);
+      }
+    } else if(VAULT_STATE == 1){ // LOGGED OUT
+      let password = document.getElementById('login_password').value;
+      getAPIKey(password);
+    } else if (VAULT_STATE == 2){ // LOGGED IN
+      let api_key = document.getElementById('logged_in_api_key').value;
+      let password = document.getElementById('logged_in_password').value;
+      if(password.length < 8){
+        alert('Error your password must be at least 8 charecters long.');
+      } else {
+        saveAPIKey(password, api_key);
+      }
+    }
+  });
+
+  var loginModalBtn = document.getElementById("deleteApiKeyBtn");
+  loginModalBtn.addEventListener("click", function() {
+    let text = "Are you sure you want to remove your API Key?\n\nYou will need to re-enter your API again if you proceed. ";
+    if (confirm(text) == true) {
+      deleteAPIKey();
+    } 
+  });
+
+  var logoutModalBtn = document.getElementById("logged_in_logout");
+  logoutModalBtn.addEventListener("click", function() {
+    let text = "Are you sure you want to log out?\n\nYour API Key is stored encrypted, you will need to unlock it with your password.";
+    if (confirm(text) == true) {
+      clearMemory();
+    } 
   });
   
 }
