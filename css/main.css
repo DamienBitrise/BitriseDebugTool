@@ -29,6 +29,7 @@ body {
 }
 
 .bitriseButton{
+    cursor: pointer;
     border-color: #683d87;
     color: white;
     background-image: linear-gradient(to top, #450674, #6c0eb2);
@@ -129,7 +130,7 @@ body {
 }
 
 .editor-container{
-    height:100%;
+    height: calc(100% - 52px);
     width:100%;
     min-height:100%;
     min-width:100%;
@@ -214,7 +215,7 @@ select{
 }
 
 .controls-container{
-    margin-top: 8px;
+    margin-top: -8px;
     margin-left: 20px;
 }
 .controls{
@@ -442,4 +443,48 @@ label {
 #controls{
     margin-left: 40px;
     float: left;
+}
+
+.main-panel{
+    float: left;
+    height: 100%;
+    width: calc(100% - 200px);
+}
+
+.sidebar{
+    float: left;
+    width: 200px;
+    height: calc(100% - 74px);
+    /* box-sizing: border-box; */
+}
+
+.editor-menu{
+    width: 100%;
+    border: solid 1px rgb(204, 204, 204);
+    height: 32px;
+    box-sizing: border-box;
+}
+
+.editor-menu-panel{
+    width: 100%;
+    border: solid 1px rgb(204, 204, 204);
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    padding-top: 0px;
+}
+
+#container{
+    width: 100%;
+    height: 100%;
+}
+
+.editor-label{
+    margin: 0px;
+    padding-top: 12px;
+}
+
+.button_container{
+    float: left;
+    margin-left: 280px;
 }

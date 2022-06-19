@@ -1,17 +1,23 @@
 let originalModel =null;
 let modifiedModel = null;
 let resizeTimeout = null;
+let selectedStep = null;
 let diffEditor = null;
+let navi = null;
 let left = null;
 let leftOriginal = null;
+// let leftOriginalUnchanged = null;
 let right = null;
 let rightOriginal = null;
 let leftRanges = null;
 let rightRanges = null;
+let leftOverride = null;
+let rightOverride = null;
 
 // Settings
 let hideTimestamps = true;
 let hideUUIDs = true;
+let hideUnchanged = false;
 
 const ansiStartRegex = /\[\d{2}(m|;1m)/g;
 const ansiEndRegex = /\[\d{2}(m|;1m)((.|\n)*?)\[0m/g;
@@ -39,31 +45,47 @@ const slugRegexs = [
 async function loadEditor(){
   // The diff editor offers a navigator to jump between changes. Once the diff is computed the <em>next()</em> and <em>previous()</em> method allow navigation. By default setting the selection in the editor manually resets the navigation state.
   if(!left && !right){
-    left = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/success.txt');
-    leftOriginal = ''+left;
-    right = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/failure.txt');
-    rightOriginal = ''+right;
+    leftOriginal = await getText('/logs/success.txt');
+    left = '' + leftOriginal;
+    rightOriginal = await getText('/logs/failure.txt');
+    right = '' + rightOriginal;
+    leftSteps = getSteps(left);
+    rightSteps = getSteps(right);
+  } else {
+    left = '' + leftOriginal;
+    right = '' + rightOriginal;
+  }
+  if(selectedStep){
+    let leftStep = leftSteps.find((step)=>step.id == selectedStep);
+    let rightStep = rightSteps.find((step)=>step.id == selectedStep);
+    leftOverride = leftStep.lines.join('\n');
+    rightOverride = rightStep.lines.join('\n');
+  } else {
+    leftOverride = null;
+    rightOverride = null;
+  }
+  if(leftOverride && rightOverride){
+    left = '' + leftOverride;
+    right = '' + rightOverride;
+  }
+
+  // debugger;
+  if(hideTimestamps){
+    left = processRegexs(timeStampRegexs, left, '<DATE/TIME>');
+    right = processRegexs(timeStampRegexs, right, '<DATE/TIME>');
+  }
+  if(hideUUIDs){
+    left = processRegexs(slugRegexs, left, '<UUID>');
+    right = processRegexs(slugRegexs, right, '<UUID>');
   }
 
   // Clean up the log
   left = processRegexs(ansiEscapeRegexs, left, '');
-  if(hideTimestamps){
-    left = processRegexs(timeStampRegexs, left, '[DATE/TIME REPLACED]');
-  }
-  if(hideUUIDs){
-    left = processRegexs(slugRegexs, left, '[BUILD SLUG REPLACED]');
-  }
   left = fixCodeBlocks(left);
   left = fixNewLineIssue(left);
   left = fixNewLineEndIssue(left);
 
   right = processRegexs(ansiEscapeRegexs, right, '');
-  if(hideTimestamps){
-    right = processRegexs(timeStampRegexs, right, '[DATE/TIME REPLACED]');
-  }
-  if(hideUUIDs){
-    right = processRegexs(slugRegexs, right, '[BUILD SLUG REPLACED]');
-  }
   right = fixCodeBlocks(right);
   right = fixNewLineIssue(right);
   right = fixNewLineEndIssue(right);
@@ -83,8 +105,18 @@ async function loadEditor(){
   right = processRegexs(ansiRegexs, right, '');
   let rightLines = right.split('\n');
 
-  leftRanges = getRanges(leftLines, leftLinesUnmodified, leftMatches, leftRanges);
-  rightRanges = getRanges(rightLines, rightLinesUnmodified, rightMatches, rightRanges);
+  if(hideUnchanged){
+    let changes = hideUnchangedLines(leftOverride ? leftOverride : left, rightOverride ? right : rightOverride);
+    left = changes[0];
+    right = changes[1];
+  }
+
+  if(leftMatches && rightMatches){
+    leftRanges = getRanges(leftLines, leftLinesUnmodified, leftMatches, leftRanges);
+    rightRanges = getRanges(rightLines, rightLinesUnmodified, rightMatches, rightRanges);
+  } else {
+    console.log('No matches found!');
+  }
  
   createEditor();
 
@@ -92,6 +124,33 @@ async function loadEditor(){
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(resize, 150);
   };
+}
+
+function hideUnchangedLines(leftText, rightText){
+  let left = leftText.split('\n');
+  let right = rightText.split('\n');
+  let lineChanges = diffEditor.getLineChanges(); 
+  console.log(lineChanges);
+  let leftLines = [];
+  let rightLines = [];
+  lineChanges.forEach((line)=>{
+    let ls = line.originalStartLineNumber;
+    let le = line.originalEndLineNumber;
+    for(let i = ls; i <= le+1; i++){
+      if(right[i-1] != '' && right[i-1] != '\n'){
+        leftLines.push(left[i-1]);
+      }
+    }
+    let rs = line.modifiedStartLineNumber;
+    let re = line.modifiedEndLineNumber;
+    for(let i = rs; i <= re+1; i++){
+      if(right[i-1] != '' && right[i-1] != '\n'){
+        rightLines.push(right[i-1]);
+      }
+    }
+  });
+
+  return [leftLines.join('\n'), rightLines.join('\n')];
 }
 
 function getRanges(lines, unmodifiedLines, matches){
@@ -211,6 +270,44 @@ function getLineNumber(lines, string){
   }
 }
 
+function downloadAll(){
+  let filenames = [
+    'LEFT_apps_0285f0566059b103_de0da46c-fecf-40ad-a327-45ddb9860999-full.txt',
+    'RIGHT_apps_0285f0566059b103_b1080108-3ba5-4525-95b0-41b0d1687b05-full.txt'
+  ];
+
+  download(filenames[0], leftOriginal);
+  download(filenames[1], rightOriginal);
+}
+
+function download(filename, text) {
+  const blob = new Blob([text], { type: "text/plain" });
+  const downloadLink = document.createElement("a");
+  downloadLink.download = filename;
+  downloadLink.innerHTML = "Download File";
+  if (window.webkitURL) {
+      // No need to add the download element to the DOM in Webkit.
+      downloadLink.href = window.webkitURL.createObjectURL(blob);
+  } else {
+      downloadLink.href = window.URL.createObjectURL(blob);
+      downloadLink.onclick = (event) => {
+          if (event.target) {
+              document.body.removeChild(event.target);
+          }
+      };
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+  }
+
+  downloadLink.click();
+
+  if (window.webkitURL) {
+      window.webkitURL.revokeObjectURL(downloadLink.href);
+  } else {
+      window.URL.revokeObjectURL(downloadLink.href);
+  }
+};
+
 function createEditor(){
     originalModel = monaco.editor.createModel(left);
     modifiedModel = monaco.editor.createModel(right);
@@ -222,7 +319,7 @@ function createEditor(){
       ignoreTrimWhitespace: true
     });
 
-    window.editor = monaco.editor.createDiffNavigator(diffEditor, {
+    navi = monaco.editor.createDiffNavigator(diffEditor, {
       automaticLayout: true,
       enableSplitViewResizing: true,
       followsCaret: true, // resets the navigator state when the user selects something in the editor
@@ -249,11 +346,4 @@ function resize(){
     ignoreTrimWhitespace: true
   });
   diffEditor.restoreViewState(oldViewState);
-}
-
-function rebuild(leftStep, rightStep){
-  left = leftStep;
-  right = rightStep;
-  diffEditor.dispose();
-  loadEditor();
 }

@@ -1,11 +1,6 @@
 let modal = null;
-let selectedStep = null;
 window.onload = async function () {
   await loadEditor();
-  
-  leftSteps = getSteps(leftOriginal);
-  rightSteps = getSteps(rightOriginal);
-
   populateStepSelect();
   addEventListeners();
 };
@@ -28,15 +23,6 @@ function populateStepSelect(){
 
 function updateStep(stepName){
   selectedStep = stepName;
-  leftSteps = getSteps(leftOriginal);
-  rightSteps = getSteps(rightOriginal);
-  let leftStep = leftSteps.find((step)=>step.id == stepName);
-  let rightStep = rightSteps.find((step)=>step.id == stepName);
-  if(stepName){
-    rebuild(leftStep.lines.join('\n'), rightStep.lines.join('\n'));
-  } else {
-    rebuild(leftOriginal, rightOriginal);
-  }
 }
 
 /* Event Listeners */
@@ -44,24 +30,55 @@ function updateStep(stepName){
 function addEventListeners(){
   var downloadElm = document.getElementById("download");
   downloadElm.addEventListener("click", function() {
-    download();
+    downloadAll();
   });
 
   var stepElm = document.getElementById("steps");
-  stepElm.addEventListener("change", function() {
+  stepElm.addEventListener("change", async function() {
     selectedStep = this.value;
+    document.getElementById("remove_unchanged").checked = false;
+    hideUnchanged = false;
+
     updateStep(selectedStep);
+    diffEditor.dispose();
+    await loadEditor();
   });
 
   var timestampElm = document.getElementById("remove_timestamps");
-  timestampElm.addEventListener("change", function() {
+  timestampElm.addEventListener("change", async function() {
     hideTimestamps = !this.checked;
+    document.getElementById("remove_unchanged").checked = false;
+    hideUnchanged = false;
     updateStep(selectedStep);
+    diffEditor.dispose();
+    await loadEditor();
   });
 
   var uuidElm = document.getElementById("remove_uuids");
-  uuidElm.addEventListener("change", function() {
+  uuidElm.addEventListener("change", async function() {
     hideUUIDs = !this.checked;
+    document.getElementById("remove_unchanged").checked = false;
+    hideUnchanged = false;
     updateStep(selectedStep);
+    diffEditor.dispose();
+    await loadEditor();
+  });
+
+  var unchangedElm = document.getElementById("remove_unchanged");
+  unchangedElm.addEventListener("change", async function() {
+    hideUnchanged = this.checked;
+    updateStep(selectedStep);
+    diffEditor.dispose();
+    await loadEditor();
+  });
+
+  var nextElm = document.getElementById("nextBtn");
+  nextElm.addEventListener("click", function() {
+    navi.next();
+  });
+
+  var prevElm = document.getElementById("prevBtn");
+  prevElm.addEventListener("click", function() {
+    navi.previous();
   });
 }

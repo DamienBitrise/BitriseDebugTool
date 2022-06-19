@@ -16,42 +16,58 @@
   </head>
   <body>
     <div class="page">
-      
       <div class="header">
         <div class="header-info">
-           <div class="bitriseLabel block bitriseFont">Bitrise Build Log Debugger</div>
-           <div class="bitriseLabel block bitriseFontSmall">You can diff bitrise.yml, build logs and step output</div>
+          <div class="bitriseLabel block bitriseFont">Bitrise Build Log Debugger</div>
+          <div class="bitriseLabel block bitriseFontSmall">You can diff bitrise.yml, build logs and step output</div>
         </div>
         <div id="controls" class="flex-child">
           <div class="controls-container">
-            <span class="top-controls">
-              <label class="bitriseLabel" for="steps">Step:</label>
-              <select class="bitriseSelect" id="steps" name="steps"></select>
-            </span>
-            <span class="controls">
-              <label class="bitriseLabel" for="remove_timestamps">Timestamps:</label>
-              <input class="" type="checkbox" id="remove_timestamps">
-              <label class="bitriseLabel" for="remove_uuids">UUIDs:</label>
-              <input class="" type="checkbox" id="remove_uuids">
-            </span>
-            <!-- 
-            <span class="controls">
-              <button class="bitriseButton" id="addStage">Add Stage</button>
-              <input class="bitriseInput" type="text" id="stage_name">
-            </span> -->
+            <div class="button_container">
+              <button class="bitriseButton" id="prevBtn">Prev</button>
+              <button class="bitriseButton" id="nextBtn">Next</button>
+            </div>
             <div>
               <span id="errors"></span>
             </div>
           </div>
         </div>
         <div class="header-right">
-           <button class="bitriseButton bitriseButtonWide" id="download">Download bitrise.yml</button>
+          <button class="bitriseButton bitriseButtonWide" id="download">Download Logs</button>
         </div>
         <div class="spacer" style="clear: both;"></div>
-     </div>
+      </div>
+      <div class="sidebar">
+        <div class="editor-menu-panel">
+          <div class="controls">
+            <label class="bitriseLabel editor-label" for="pipelines">Left:</label>
+            <input class="bitriseInput" type="text" id="left_url" value="https://app.bitrise.io/build/de0da46c-fecf-40ad-a327-45ddb9860999">
+          </div>
+          <div class="controls">
+            <label class="bitriseLabel editor-label" for="pipelines">Right:</label>
+            <input class="bitriseInput" type="text" id="right_url" value="https://app.bitrise.io/build/b1080108-3ba5-4525-95b0-41b0d1687b05">
+          </div>
+
+          <div class="controls">
+            <label class="bitriseLabel editor-label" for="steps">Step:</label>
+            <select class="bitriseSelect" id="steps" name="steps"></select>
+          </div>
+          <div class="settings">
+            <label class="bitriseLabel editor-label" style="font-size: bold;">Filters</label><br>
+            <input class="" type="checkbox" id="remove_unchanged">
+            <label class="bitriseLabel editor-label" for="remove_unchanged">Diff Only</label><br>
+            <input class="" type="checkbox" id="remove_timestamps">
+            <label class="bitriseLabel editor-label" for="remove_timestamps">Timestamps</label><br>
+            <input class="" type="checkbox" id="remove_uuids">
+            <label class="bitriseLabel editor-label" for="remove_uuids">UUIDs</label>
+          </div>
+        </div>
+      </div>
       <div class="flex-container">
-        <div id="yaml" class="editor-container">
-          <div id="container" style="width: 100%; height: 100%; border: 1px solid grey"></div>
+        <div class="editor-container">
+          <div id="yaml" class="editor-container">
+            <div id="container"></div>
+          </div>
         </div>
       </div>
     </div>

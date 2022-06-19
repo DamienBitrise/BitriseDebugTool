@@ -7,12 +7,13 @@ let startSummary = '|                               bitrise summary             
 let endSummary = '| Total runtime:';
 let skipSummary = '| Issue tracker:';
 let skipSummary2 = '| Source:';
+let stepWrapper = '+------------------------------------------------------------------------------+';
 
 function getSteps(log){
     let lines = log.split('\n');
     let parsingStep = false;
     let steps = [];
-    let stepLines = ['+------------------------------------------------------------------------------+'];
+    let stepLines = [stepWrapper];
     let stepName = '';
     let parsingSummary = false;
     let finished = false;
@@ -23,12 +24,12 @@ function getSteps(log){
         } else if(line.indexOf(endSummary) != -1) {
             finished = true;
             stepLines.push(line);
-            stepLines.push('+------------------------------------------------------------------------------+');
+            stepLines.push(stepWrapper);
             steps.push({
                 id: stepName,
                 lines: stepLines
             });
-            stepLines = ['+------------------------------------------------------------------------------+'];
+            stepLines = [stepWrapper];
             parsingSummary = false;
         }
         if(!parsingSummary){
@@ -37,12 +38,12 @@ function getSteps(log){
             } else if (line.indexOf(endStep) != -1 || line.indexOf(endStep2) != -1 || line.indexOf(endStep3) != -1){
                 parsingStep = false;
                 stepLines.push(line);
-                stepLines.push('+------------------------------------------------------------------------------+');
+                stepLines.push(stepWrapper);
                 steps.push({
                     id: stepName,
                     lines: stepLines
                 });
-                stepLines = ['+------------------------------------------------------------------------------+'];
+                stepLines = [stepWrapper];
                 parsingSummary = false;
                 finished = false;
             }
