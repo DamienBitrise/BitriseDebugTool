@@ -3,7 +3,6 @@ var _key_size = 256;
 var _pbkdf_iterations = 100;
 const LOCAL_STORAGE_DATA = 'BITRISE_ENCRYPTED_DATA';
 const LOCAL_STORAGE_IV = 'BITRISE_IV';
-var crypto = require('crypto-js');
 // Do not change this once used in production
 // If copying from StackExchange replace with a new random value for your app 
 // or pass in a user specific value from the DB
