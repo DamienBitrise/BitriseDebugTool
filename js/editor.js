@@ -33,10 +33,11 @@ const slugRegexs = [
 async function loadEditor(){
   // The diff editor offers a navigator to jump between changes. Once the diff is computed the <em>next()</em> and <em>previous()</em> method allow navigation. By default setting the selection in the editor manually resets the navigation state.
   if(!left && !right){
-    left = await getText('/logs/success.txt');
-    right = await getText('/logs/failure.txt');
+    left = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/success.txt');
+    right = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/failure.txt');
   }
 
+  // Clean up the log
   left = processRegexs(ansiEscapeRegexs, left, '');
   left = processRegexs(timeStampRegexs, left, '[DATE/TIME REPLACED]');
   left = processRegexs(slugRegexs, left, '[BUILD SLUG REPLACED]');
@@ -56,10 +57,7 @@ async function loadEditor(){
   let rightLinesUnmodified = right.split('\n');
 
   // Get the [32m ansi color positions
-  let leftStarts = left.match(ansiStartRegex);
   let leftMatches = left.match(ansiEndRegex);
-
-  let rightStarts = right.match(ansiStartRegex);
   let rightMatches = right.match(ansiEndRegex);
 
   left = processRegexs(ansiRegexs, left, '');
@@ -69,51 +67,42 @@ async function loadEditor(){
   right = processRegexs(ansiRegexs, right, '');
   let rightLines = right.split('\n');
 
-  leftRanges = [];
-  rightRanges = [];
-  
+  leftRanges = getRanges(leftLines, leftLinesUnmodified, leftMatches, leftRanges);
+  rightRanges = getRanges(rightLines, rightLinesUnmodified, rightMatches, rightRanges);
+ 
+  createEditor();
+
+  window.onresize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resize, 150);
+  };
+}
+
+function getRanges(lines, unmodifiedLines, matches){
+  let ranges = [];
   let currentLine = 0;
-  // debugger;
-  for(let i=0; i<leftMatches.length; i++){
-    let color = 'ansi_'+leftStarts[i].replace('[', '').replace(';1m', 'm1m');
-    // Replace text with colors
-    for(let j = currentLine; j < leftLinesUnmodified.length; j++){
-      let indexStart = leftLinesUnmodified[j].indexOf(leftMatches[i]);
-      if(indexStart != -1){
-        // Remove the ansi codes now we found it
-        leftMatches[i] = processRegexs(ansiRegexs, leftMatches[i], '');
-        // update the start index without the ansi codes
-        indexStart = leftLines[j].indexOf(leftMatches[i]);
-        let indexEnd = indexStart + leftMatches[i].length + 1;
-        leftRanges.push({
-          range: new monaco.Range(j+1, indexStart, j+1, indexEnd),
-          options: { inlineClassName: color }
-        });
-        currentLine = j;
-        break;
-      }
+  for(let i=0; i<matches.length; i++){
+    let ansiColor = matches[i].match(ansiStartRegex);
+    let color = 'ansi_'+ansiColor[0].replace('[', '').replace(';1m', 'm1m');
+    let expandedmatches = [matches[i]];
+
+    // Handle multi line asci coloring
+    if(matches[i].indexOf('\n') != -1){
+      expandedmatches = matches[i].split('\n');
     }
-  }
-  currentLine = 0;
-  for(let i=0; i<rightMatches.length; i++){
-    let color = 'ansi_'+rightStarts[i].replace('[', '').replace(';1m', 'm1m');
-    let expandedmatches = [rightMatches[i]];
-    if(rightMatches[i].indexOf('\n') != -1){
-      expandedmatches = rightMatches[i].split('\n');
-      // debugger;
-    }
-    expandedmatches.forEach((match, index)=>{
+    
+    expandedmatches.forEach((match)=>{
       // Replace text with colors
-      for(let j = currentLine; j < rightLinesUnmodified.length; j++){
-        let indexStart = rightLinesUnmodified[j].indexOf(match);
+      for(let j = currentLine; j < unmodifiedLines.length; j++){
+        let indexStart = unmodifiedLines[j].indexOf(match);
         if(indexStart != -1){
           // Remove the ansi codes now we found it
           match = processRegexs(ansiRegexs, match, '');
           if(match != ''){
             // update the start index without the ansi codes
-            indexStart = rightLines[j].indexOf(match);
+            indexStart = lines[j].indexOf(match);
             let indexEnd = indexStart + match.length + 1;
-            rightRanges.push({
+            ranges.push({
               range: new monaco.Range(j+1, indexStart, j+1, indexEnd),
               options: { inlineClassName: color }
             });
@@ -124,13 +113,7 @@ async function loadEditor(){
       }
     })
   }
-  
-  createEditor();
-
-  window.onresize = () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(resize, 150);
-  };
+  return ranges;
 }
 
 function fixCodeBlocks(text){
@@ -172,13 +155,21 @@ function fixNewLineEndIssue(text){
   let linesToMerge = [];
   if(matches){
     for(let i = 0; i < matches.length; i++){
-      for(let j = currentLine; j < lines.length; j++){
-        if(lines[j] == matches[i].substring(2, matches[i].length)){
-          linesToMerge.push(j);
-          currentLine = j+1;
-          break;
-        }
+      let expandedmatches = [matches[i]];
+      if(matches[i].indexOf('\n') != -1){
+        expandedmatches = matches[i].split('\n');
       }
+      expandedmatches.forEach((match)=>{
+        if(match != ''){
+          for(let j = currentLine; j < lines.length; j++){
+            if(lines[j] == match.substring(2, match.length)){
+              linesToMerge.push(j);
+              currentLine = j+1;
+              break;
+            }
+          }
+        }
+      });
     }
     let offset = 0;
     linesToMerge.forEach((index)=>{
