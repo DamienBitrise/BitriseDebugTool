@@ -23,10 +23,6 @@
         </div>
         <div id="controls" class="flex-child">
           <div class="controls-container">
-            <div class="button_container">
-              <button class="bitriseButton" id="prevBtn">Prev</button>
-              <button class="bitriseButton" id="nextBtn">Next</button>
-            </div>
             <div>
               <span id="errors"></span>
             </div>
@@ -34,6 +30,8 @@
         </div>
         <div class="header-right">
           <button class="bitriseButton bitriseButtonWide" id="download">Download Logs</button>
+
+          <button class="bitriseButton bitriseButtonWide" id="login">Login</button>
         </div>
         <div class="spacer" style="clear: both;"></div>
       </div>
@@ -61,6 +59,12 @@
             <input class="" type="checkbox" id="remove_uuids">
             <label class="bitriseLabel editor-label" for="remove_uuids">UUIDs</label>
           </div>
+
+          <div class="controls">
+            <label class="bitriseLabel editor-label" style="font-size: bold;">Diffs</label><br>
+            <button class="bitriseButton editor-label" id="prevBtn">Prev</button>
+            <button class="bitriseButton editor-label" id="nextBtn">Next</button>
+          </div>
         </div>
       </div>
       <div class="flex-container">
@@ -79,11 +83,16 @@
             <h4 class="modal-title">Modal title</h4>
           </div>
           <div class="modal-body">
-            <p>One fine body…</p>
+            <label class="bitriseLabel editor-label" for="api_key">Bitrise API Key:</label>
+            <input class="bitriseInput wide" type="text" id="api_key" value="">
+            <label class="bitriseLabel editor-label" for="password">Password:</label>
+            <input class="bitriseInput wide" type="password" id="password" value="">
+            <br>
+            <span class="subtitle">(Used to encrypt and store your API Key)</span>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="loginBtn">Login</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -96,6 +105,7 @@
     <script src="./libs/monaco-editor/min/vs/editor/editor.main.js"></script>
     <script src="./libs/modal/modal.min.js"></script>
     <script src="./js/utils.js"></script>
+    <script src="./js/crypto.js"></script>
     <script src="./js/editor.js"></script>
     <script src="./js/steps.js"></script>
     <script src="./js/main.js"></script>

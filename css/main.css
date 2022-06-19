@@ -33,7 +33,7 @@ body {
     border-color: #683d87;
     color: white;
     background-image: linear-gradient(to top, #450674, #6c0eb2);
-    width: 120px;
+    width: 60px;
     margin: 12px 18px;
     border-radius: 4px;
     -webkit-box-sizing: border-box;
@@ -72,7 +72,7 @@ body {
 }
 
 .bitriseButtonWide{
-    width: 200px;
+    width: 140px;
     margin: 0px;
     margin-top: 4px;
 }
@@ -123,6 +123,10 @@ body {
     font-size: 14px;
     font-weight: 400;
     font-family: "SourceCodePro", monospace;
+}
+
+.wide{
+    width: 100%;
 }
 
 #myKanban {
@@ -482,6 +486,12 @@ label {
 .editor-label{
     margin: 0px;
     padding-top: 12px;
+}
+
+.editor-label-wide{
+    margin: 0px;
+    padding-top: 12px;
+    width: 150px;
 }
 
 .button_container{

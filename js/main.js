@@ -3,6 +3,9 @@ window.onload = async function () {
   await loadEditor();
   populateStepSelect();
   addEventListeners();
+  getAPIKey('qqq', (decryptedData)=>{
+    console.log('decryptedData:', decryptedData);
+  });
 };
 
 function populateStepSelect(){
@@ -81,4 +84,21 @@ function addEventListeners(){
   prevElm.addEventListener("click", function() {
     navi.previous();
   });
+
+  var loginBtn = document.getElementById("login");
+  loginBtn.addEventListener("click", function() {
+    modal = new Modal({
+      el: document.getElementById('static-modal'),
+      title: 'Login',
+      // content: ''
+    }).show();
+  });
+
+  var loginModalBtn = document.getElementById("loginBtn");
+  loginModalBtn.addEventListener("click", function() {
+    let api_key = document.getElementById('api_key').value;
+    let password = document.getElementById('password').value;
+    saveAPIKey(password, api_key);
+  });
+  
 }
