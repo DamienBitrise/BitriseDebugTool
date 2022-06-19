@@ -106,7 +106,7 @@ async function loadEditor(){
   let rightLines = right.split('\n');
 
   if(hideUnchanged){
-    let changes = hideUnchangedLines(leftOverride ? leftOverride : left, rightOverride ? right : rightOverride);
+    let changes = hideUnchangedLines(leftOverride ? leftOverride : left, rightOverride ? rightOverride : right);
     left = changes[0];
     right = changes[1];
   }
