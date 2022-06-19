@@ -45,9 +45,9 @@ const slugRegexs = [
 async function loadEditor(){
   // The diff editor offers a navigator to jump between changes. Once the diff is computed the <em>next()</em> and <em>previous()</em> method allow navigation. By default setting the selection in the editor manually resets the navigation state.
   if(!left && !right){
-    leftOriginal = await getText('/logs/success.txt');
+    leftOriginal = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/success.txt');
     left = '' + leftOriginal;
-    rightOriginal = await getText('/logs/failure.txt');
+    rightOriginal = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/failure.txt');
     right = '' + rightOriginal;
     leftSteps = getSteps(left);
     rightSteps = getSteps(right);
