@@ -16,10 +16,30 @@
   </head>
   <body>
     <div class="page">
+      
       <div class="header">
         <div class="header-info">
            <div class="bitriseLabel block bitriseFont">Bitrise Build Log Debugger</div>
            <div class="bitriseLabel block bitriseFontSmall">You can diff bitrise.yml, build logs and step output</div>
+        </div>
+        <div id="controls" class="flex-child">
+          <div class="controls-container">
+            <span class="top-controls">
+              <label class="bitriseLabel" for="steps">Step:</label>
+              <select class="bitriseSelect" id="steps" name="steps"></select>
+            </span>
+            <!-- <span class="controls">
+              <button class="bitriseButton" id="addPipeline">Add Pipeline</button>
+              <input class="bitriseInput" type="text" id="pipeline_name">
+            </span>
+            <span class="controls">
+              <button class="bitriseButton" id="addStage">Add Stage</button>
+              <input class="bitriseInput" type="text" id="stage_name">
+            </span> -->
+            <div>
+              <span id="errors"></span>
+            </div>
+          </div>
         </div>
         <div class="header-right">
            <button class="bitriseButton bitriseButtonWide" id="download">Download bitrise.yml</button>
@@ -58,6 +78,7 @@
     <script src="./libs/modal/modal.min.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/editor.js"></script>
+    <script src="./js/steps.js"></script>
     <script src="./js/main.js"></script>
   </body>
 </html>

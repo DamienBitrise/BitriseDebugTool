@@ -437,3 +437,9 @@ label {
     src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Bold.woff) format("woff");
     font-weight: 900
 }
+
+
+#controls{
+    margin-left: 40px;
+    float: left;
+}

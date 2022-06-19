@@ -3,7 +3,9 @@ let modifiedModel = null;
 let resizeTimeout = null;
 let diffEditor = null;
 let left = null;
+let leftOriginal = null;
 let right = null;
+let rightOriginal = null;
 let leftRanges = null;
 let rightRanges = null;
 
@@ -34,7 +36,9 @@ async function loadEditor(){
   // The diff editor offers a navigator to jump between changes. Once the diff is computed the <em>next()</em> and <em>previous()</em> method allow navigation. By default setting the selection in the editor manually resets the navigation state.
   if(!left && !right){
     left = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/success.txt');
+    leftOriginal = ''+left;
     right = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/failure.txt');
+    rightOriginal = ''+right;
   }
 
   // Clean up the log
@@ -233,4 +237,11 @@ function resize(){
     ignoreTrimWhitespace: true
   });
   diffEditor.restoreViewState(oldViewState);
+}
+
+function rebuild(leftStep, rightStep){
+  left = leftStep;
+  right = rightStep;
+  diffEditor.dispose();
+  loadEditor();
 }
