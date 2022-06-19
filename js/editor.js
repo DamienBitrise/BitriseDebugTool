@@ -9,6 +9,10 @@ let rightOriginal = null;
 let leftRanges = null;
 let rightRanges = null;
 
+// Settings
+let hideTimestamps = true;
+let hideUUIDs = true;
+
 const ansiStartRegex = /\[\d{2}(m|;1m)/g;
 const ansiEndRegex = /\[\d{2}(m|;1m)((.|\n)*?)\[0m/g;
 const ansiNewLineRegex = /\[\d{2}(m|;1m)\n/g;
@@ -43,15 +47,23 @@ async function loadEditor(){
 
   // Clean up the log
   left = processRegexs(ansiEscapeRegexs, left, '');
-  left = processRegexs(timeStampRegexs, left, '[DATE/TIME REPLACED]');
-  left = processRegexs(slugRegexs, left, '[BUILD SLUG REPLACED]');
+  if(hideTimestamps){
+    left = processRegexs(timeStampRegexs, left, '[DATE/TIME REPLACED]');
+  }
+  if(hideUUIDs){
+    left = processRegexs(slugRegexs, left, '[BUILD SLUG REPLACED]');
+  }
   left = fixCodeBlocks(left);
   left = fixNewLineIssue(left);
   left = fixNewLineEndIssue(left);
 
   right = processRegexs(ansiEscapeRegexs, right, '');
-  right = processRegexs(timeStampRegexs, right, '[DATE/TIME REPLACED]');
-  right = processRegexs(slugRegexs, right, '[BUILD SLUG REPLACED]');
+  if(hideTimestamps){
+    right = processRegexs(timeStampRegexs, right, '[DATE/TIME REPLACED]');
+  }
+  if(hideUUIDs){
+    right = processRegexs(slugRegexs, right, '[BUILD SLUG REPLACED]');
+  }
   right = fixCodeBlocks(right);
   right = fixNewLineIssue(right);
   right = fixNewLineEndIssue(right);

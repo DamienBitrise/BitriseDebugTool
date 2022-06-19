@@ -5,6 +5,8 @@ let endStep3 = '| [31;1mx[0m |';
 let stepId = '| id: ';
 let startSummary = '|                               bitrise summary                                |';
 let endSummary = '| Total runtime:';
+let skipSummary = '| Issue tracker:';
+let skipSummary2 = '| Source:';
 
 function getSteps(log){
     let lines = log.split('\n');
@@ -17,8 +19,17 @@ function getSteps(log){
     lines.forEach((line)=>{
         if(line.indexOf(startSummary) != -1){
             parsingSummary = true;
+            stepName = 'Summary';
         } else if(line.indexOf(endSummary) != -1) {
             finished = true;
+            stepLines.push(line);
+            stepLines.push('+------------------------------------------------------------------------------+');
+            steps.push({
+                id: stepName,
+                lines: stepLines
+            });
+            stepLines = ['+------------------------------------------------------------------------------+'];
+            parsingSummary = false;
         }
         if(!parsingSummary){
             if(line.indexOf(startStep) != -1){
@@ -26,6 +37,7 @@ function getSteps(log){
             } else if (line.indexOf(endStep) != -1 || line.indexOf(endStep2) != -1 || line.indexOf(endStep3) != -1){
                 parsingStep = false;
                 stepLines.push(line);
+                stepLines.push('+------------------------------------------------------------------------------+');
                 steps.push({
                     id: stepName,
                     lines: stepLines
@@ -40,6 +52,13 @@ function getSteps(log){
                     stepName = line.substring(stepId.length, line.length-2).trim();
                 }
                 stepLines.push(line);
+            }
+        } else if (!finished){
+            if(line.indexOf(skipSummary) == -1 && line.indexOf(skipSummary2) == -1){
+                stepLines.push(line);
+            } 
+            if(line.indexOf(skipSummary2) != -1 ){
+                stepLines.pop();
             }
         }
     });

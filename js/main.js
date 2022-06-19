@@ -27,6 +27,7 @@ function populateStepSelect(){
 }
 
 function updateStep(stepName){
+  selectedStep = stepName;
   leftSteps = getSteps(leftOriginal);
   rightSteps = getSteps(rightOriginal);
   let leftStep = leftSteps.find((step)=>step.id == stepName);
@@ -49,6 +50,18 @@ function addEventListeners(){
   var stepElm = document.getElementById("steps");
   stepElm.addEventListener("change", function() {
     selectedStep = this.value;
+    updateStep(selectedStep);
+  });
+
+  var timestampElm = document.getElementById("remove_timestamps");
+  timestampElm.addEventListener("change", function() {
+    hideTimestamps = !this.checked;
+    updateStep(selectedStep);
+  });
+
+  var uuidElm = document.getElementById("remove_uuids");
+  uuidElm.addEventListener("change", function() {
+    hideUUIDs = !this.checked;
     updateStep(selectedStep);
   });
 }
