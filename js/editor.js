@@ -1,23 +1,29 @@
+// Monaco Editor Objects
+let diffEditor = null;
 let originalModel =null;
 let modifiedModel = null;
-let resizeTimeout = null;
-let selectedStep = null;
-let diffEditor = null;
 let navi = null;
+// Log Storage for parsing
 let left = null;
 let leftOriginal = null;
-// let leftOriginalUnchanged = null;
 let right = null;
 let rightOriginal = null;
+// Ranges
 let leftRanges = null;
 let rightRanges = null;
+// Step log override
 let leftOverride = null;
 let rightOverride = null;
-
+// Resive handler timeout
+let resizeTimeout = null;
 // Settings
 let hideTimestamps = true;
 let hideUUIDs = true;
 let hideUnchanged = false;
+let selectedStep = null;
+// Parsed Steps
+let leftSteps = [];
+let rightSteps = [];
 
 const ansiStartRegex = /\[\d{2}(m|;1m)/g;
 const ansiEndRegex = /\[\d{2}(m|;1m)((.|\n)*?)\[0m/g;

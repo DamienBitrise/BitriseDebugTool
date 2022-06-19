@@ -1,4 +1,5 @@
 let modal = null;
+let enableDiff = false;
 window.onload = async function () {
   await loadEditor();
   populateStepSelect();
@@ -26,6 +27,40 @@ function updateStep(stepName){
   selectedStep = stepName;
 }
 
+async function changeStep(inc){
+  // Need to disable diff when changing step
+  hideUnchanged = false;
+  enableDiff = hideUnchanged;
+  document.getElementById("remove_unchanged").checked = false;
+
+  // Update selected step
+  let selectElm = document.getElementById('steps');
+  let index = parseInt(selectElm.selectedIndex);
+  let options = Array.from(selectElm.childNodes);
+  if(index+inc >= options.length){
+    index = 0;
+  } else if(index+inc < 0){
+    index = options.length-1;
+  } else {
+    index+=inc;
+  }
+  selectedStep = index != 0 ? options[index].value : '';
+  selectElm.selectedIndex = index;
+  updateStep(selectedStep);
+
+  diffEditor.dispose();
+  await loadEditor();
+}
+
+async function bugFixForDiffOnlly(){
+  // TODO: Figure out how to avoid this duplicate work,
+  // Need to reenable diff only after the model is updated
+  if(enableDiff){
+    hideUnchanged = true;
+    diffEditor.dispose();
+    await loadEditor();
+  }
+}
 /* Event Listeners */
 
 function addEventListeners(){
@@ -37,32 +72,40 @@ function addEventListeners(){
   var stepElm = document.getElementById("steps");
   stepElm.addEventListener("change", async function() {
     selectedStep = this.value;
-    document.getElementById("remove_unchanged").checked = false;
     hideUnchanged = false;
+    enableDiff = hideUnchanged;
+    document.getElementById("remove_unchanged").checked = false;
 
     updateStep(selectedStep);
     diffEditor.dispose();
     await loadEditor();
+
+    bugFixForDiffOnlly();
   });
 
   var timestampElm = document.getElementById("remove_timestamps");
   timestampElm.addEventListener("change", async function() {
     hideTimestamps = !this.checked;
-    document.getElementById("remove_unchanged").checked = false;
+    enableDiff = hideUnchanged;
     hideUnchanged = false;
+
     updateStep(selectedStep);
     diffEditor.dispose();
     await loadEditor();
+
+    bugFixForDiffOnlly();
   });
 
   var uuidElm = document.getElementById("remove_uuids");
   uuidElm.addEventListener("change", async function() {
     hideUUIDs = !this.checked;
-    document.getElementById("remove_unchanged").checked = false;
     hideUnchanged = false;
+
     updateStep(selectedStep);
     diffEditor.dispose();
     await loadEditor();
+
+    bugFixForDiffOnlly();
   });
 
   var unchangedElm = document.getElementById("remove_unchanged");
@@ -81,6 +124,16 @@ function addEventListeners(){
   var prevElm = document.getElementById("prevBtn");
   prevElm.addEventListener("click", function() {
     navi.previous();
+  });
+
+  var nextElm = document.getElementById("stepNextBtn");
+  nextElm.addEventListener("click", function() {
+    changeStep(1);
+  });
+
+  var stepPrevElm = document.getElementById("stepPrevBtn");
+  stepPrevElm.addEventListener("click", function() {
+    changeStep(-1);
   });
 
   var loginBtn = document.getElementById("login");
