@@ -64,6 +64,8 @@ async function loadEditor(){
   } else {
     left = '' + leftOriginal;
     right = '' + rightOriginal;
+    leftSteps = getSteps(left);
+    rightSteps = getSteps(right);
   }
   if(selectedStep){
     let leftStep = leftSteps.find((step)=>step.id == selectedStep);
@@ -79,7 +81,6 @@ async function loadEditor(){
     right = '' + rightOverride;
   }
 
-  // debugger;
   if(hideTimestamps){
     left = processRegexs(timeStampRegexs, left, '<DATE/TIME>');
     right = processRegexs(timeStampRegexs, right, '<DATE/TIME>');

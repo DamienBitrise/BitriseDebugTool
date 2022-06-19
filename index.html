@@ -38,12 +38,20 @@
       <div class="sidebar">
         <div class="editor-menu-panel">
           <div class="controls">
+            <label class="bitriseLabel editor-label" for="orgs">Orgs:</label>
+            <select class="bitriseSelect" id="orgs" name="orgs"></select><br>
+          </div>
+          <div class="controls">
+            <label class="bitriseLabel editor-label" for="apps">Apps:</label>
+            <select class="bitriseSelect" id="apps" name="apps"></select><br>
+          </div>
+          <div class="controls">
             <label class="bitriseLabel editor-label" for="pipelines">Left:</label>
-            <input class="bitriseInput" title="Editing not enabled yet" type="text" disabled id="left_url" value="https://app.bitrise.io/build/de0da46c-fecf-40ad-a327-45ddb9860999">
+            <input class="bitriseInput" title="Editing not enabled yet" type="text" id="left_url" value="https://app.bitrise.io/build/de0da46c-fecf-40ad-a327-45ddb9860999">
           </div>
           <div class="controls">
             <label class="bitriseLabel editor-label" for="pipelines">Right:</label>
-            <input class="bitriseInput" title="Editing not enabled yet" type="text" disabled id="right_url" value="https://app.bitrise.io/build/b1080108-3ba5-4525-95b0-41b0d1687b05">
+            <input class="bitriseInput" title="Editing not enabled yet" type="text" id="right_url" value="https://app.bitrise.io/build/b1080108-3ba5-4525-95b0-41b0d1687b05">
           </div>
 
           <div class="controls">
@@ -71,8 +79,11 @@
       </div>
       <div class="flex-container">
         <div class="editor-container">
-          <div id="yaml" class="editor-container">
+          <div id="yaml" class="editor-container" style="display: block;">
             <div id="container"></div>
+          </div>
+          <div id="main-pane" class="editor-container" style="display: none;">
+            
           </div>
         </div>
       </div>
@@ -98,6 +109,8 @@
               <input class="bitriseInput wide" type="password" id="login_password" value="">
               <br>
               <span class="subtitle">(Your API Key is encrypted and must be unlocked)</span>
+              <br>
+              <button type="button" class="bitriseButton" data-dismiss="modal" id="login_reset">Reset</button>
             </div>
 
             <div id="logged_in">
@@ -127,6 +140,8 @@
     <script src="./libs/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
     <script src="./libs/monaco-editor/min/vs/editor/editor.main.js"></script>
     <script src="./libs/modal/modal.min.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/data.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/crypto.js"></script>
     <script src="./js/editor.js"></script>

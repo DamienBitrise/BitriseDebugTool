@@ -5,6 +5,7 @@ window.onload = async function () {
   populateStepSelect();
   addEventListeners();
   hasAPIKey();
+  getAPIKey('password');
 };
 
 function populateStepSelect(){
@@ -57,8 +58,10 @@ async function bugFixForDiffOnlly(){
   // Need to reenable diff only after the model is updated
   if(enableDiff){
     hideUnchanged = true;
-    diffEditor.dispose();
-    await loadEditor();
+    setTimeout(async ()=>{
+      diffEditor.dispose();
+      await loadEditor();
+    }, 200);
   }
 }
 /* Event Listeners */
@@ -171,7 +174,7 @@ function addEventListeners(){
 
   var loginModalBtn = document.getElementById("deleteApiKeyBtn");
   loginModalBtn.addEventListener("click", function() {
-    let text = "Are you sure you want to remove your API Key?\n\nYou will need to re-enter your API again if you proceed. ";
+    let text = "Are you sure you want to remove your API Key?\n\nYou will need to re-enter your API again if you proceed.";
     if (confirm(text) == true) {
       deleteAPIKey();
     } 
@@ -183,6 +186,34 @@ function addEventListeners(){
     if (confirm(text) == true) {
       clearMemory();
     } 
+  });
+
+  var loginResetBtn = document.getElementById("login_reset");
+  loginResetBtn.addEventListener("click", function() {
+    let text = "Are you sure you want to reset?\n\nYou will need to re-enter your API again if you proceed.";
+    if (confirm(text) == true) {
+      deleteAPIKey();
+    } 
+  });
+
+  var leftUrlElm = document.getElementById("left_url");
+  leftUrlElm.addEventListener("input", async function() {
+    let buildUrl = this.value;
+    let parts = buildUrl.split('/');
+    if(parts.length == 5){
+      let buildSlug = parts[4];
+      findAppSlug(buildSlug);
+      // getBuild(buildSlug).then((res)=>{
+      //   debugger;
+      // }).catch((err)=>{
+      //   console.log(err);
+      // });
+    }
+  });
+
+  var rightUrlElm = document.getElementById("right_url");
+  rightUrlElm.addEventListener("input", async function() {
+    
   });
   
 }

@@ -92,7 +92,6 @@ async function saveAPIKey(password, api_key){
         API_KEY = '';
         alert("Error API failed to save!" + JSON.stringify(err));
     }
-
 }
 
 async function getAPIKey(password){
@@ -113,10 +112,13 @@ async function getAPIKey(password){
             document.getElementById('loginBtn').innerHTML = 'Save';
             document.getElementById('login').innerHTML = 'Account';
         }, 500);
-    } catch(err) {
-        console.log(err);
-        API_KEY = '';
-        alert("Invalid password!" + JSON.stringify(err));
+     } catch(err) {
+         console.log(err);
+         API_KEY = '';
+         alert("Invalid password!" + JSON.stringify(err));
+    }
+    if(API_KEY != ''){
+        loadAPIData();
     }
 }
 
@@ -162,6 +164,20 @@ function clearMemory(){
     }, 500);
 }
 function deleteAPIKey(){
+    API_KEY = '';
     localStorage.removeItem(LOCAL_STORAGE_DATA);
+    setTimeout(()=>{
+        document.getElementById('sign_up').style.display = 'block';
+        document.getElementById('log_in').style.display = 'none';
+        document.getElementById('logged_in').style.display = 'none';
+        document.getElementById('loginBtn').innerHTML = 'Sign Up';
+        document.getElementById('login').innerHTML = 'Sign Up';
+
+        document.getElementById('logged_in_api_key').value = '';
+        document.getElementById('signup_api_key').value = '';
+        document.getElementById('signup_password').value = '';
+        document.getElementById('login_password').value = '';
+        document.getElementById('logged_in_password').value = '';
+    }, 500);
     hasAPIKey();
 }
