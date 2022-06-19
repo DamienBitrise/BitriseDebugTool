@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bitrise Build Debugger</title>
+    <link rel="stylesheet" href="./libs/modal/modal.css">
+    <link rel="stylesheet" href="./css/editor.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="./libs/monaco-editor/min/vs/editor/editor.main.css"
+    />
+
+  </head>
+  <body>
+    <div class="page">
+      <div class="header">
+        <div class="header-info">
+           <div class="bitriseLabel block bitriseFont">Bitrise Build Log Debugger</div>
+           <div class="bitriseLabel block bitriseFontSmall">You can diff bitrise.yml, build logs and step output</div>
+        </div>
+        <div class="header-right">
+           <button class="bitriseButton bitriseButtonWide" id="download">Download bitrise.yml</button>
+        </div>
+        <div class="spacer" style="clear: both;"></div>
+     </div>
+      <div class="flex-container">
+        <div id="yaml" class="editor-container">
+          <div id="container" style="width: 100%; height: 100%; border: 1px solid grey"></div>
+        </div>
+      </div>
+    </div>
+    <div id="static-modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body…</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <script>
+      var require = { paths: { vs: './libs/monaco-editor/min/vs' } };
+    </script>
+    <script src="./libs/monaco-editor/min/vs/loader.js"></script>
+    <script src="./libs/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+    <script src="./libs/monaco-editor/min/vs/editor/editor.main.js"></script>
+    <script src="./libs/modal/modal.min.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/editor.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

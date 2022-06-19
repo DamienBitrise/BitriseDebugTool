@@ -1,0 +1,407 @@
+Agent version:	1.36.1
+Hostname:	vm-osx-xcode-13.3.x-g2.12core-6fbaa064-a520-4d6d-aafe-f599c8aef10c
+Nodename:	ATL1-vFW02-gen2-mmg4-10-87-100-234
+Start time:	2022-06-14T04:25:52Z
+$ bitrise "run" "--config" "/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/bitrise-agent358371726/bitrise.yml" "--inventory" "/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/bitrise-agent358371726/bitrise.secrets.yml" "--json-params-base64" "eyJ3b3JrZmxvdyI6ImdlbjJfZWxpdGV4bF94Y29kZV8xM18zIn0="
+
+  ██████╗ ██╗████████╗██████╗ ██╗███████╗███████╗
+  ██╔══██╗██║╚══██╔══╝██╔══██╗██║██╔════╝██╔════╝
+  ██████╔╝██║   ██║   ██████╔╝██║███████╗█████╗
+  ██╔══██╗██║   ██║   ██╔══██╗██║╚════██║██╔══╝
+  ██████╔╝██║   ██║   ██║  ██║██║███████║███████╗
+  ╚═════╝ ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚══════╝╚══════╝
+
+[32;1m  version: 1.49.0[0m
+
+[36mINFO[0m[04:25:52] [33;1mbitrise runs in Secret Filtering mode[0m 
+[36mINFO[0m[04:25:52] [33;1mbitrise runs in Secret Envs Filtering mode[0m 
+[36mINFO[0m[04:25:52] [33;1mbitrise runs in CI mode[0m           
+[36mINFO[0m[04:25:52] Running workflows: primary --> [32;1mgen2_elitexl_xcode_13_3[0m 
+
+[34;1mSwitching to workflow:[0m primary
+
+[36mINFO[0m[04:25:53] Step uses latest version -- Updating StepLib ... 
++------------------------------------------------------------------------------+
+| (0) activate-ssh-key                                                         |
++------------------------------------------------------------------------------+
+| id: activate-ssh-key                                                         |
+| version: 4.1.0                                                               |
+| collection: https://github.com/bitrise-io/bitrise-steplib.git                |
+| toolkit: go                                                                  |
+| time: 2022-06-14T04:25:56Z                                                   |
++------------------------------------------------------------------------------+
+|                                                                              |
+[34;1mInput:
+[0m- SSHRsaPrivateKey: *****
+- SSHKeySavePath: /Users/vagrant/.ssh/bitrise_step_activate_ssh_key
+- IsRemoveOtherIdentities: true
+- Verbose: false
+$ ssh-add "-l"
+ssh_agent_check_result: 1
+running / accessible ssh-agent detected
+
+$ ssh-add "-D"
+All identities removed.
+
+$ ssh-agent "-k"
+SSH_AGENT_PID not set, cannot kill agent
+Exit code: exit status 1
+
+$ bash "-c" "/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/spawn173087677/tmp_spawn.sh"
+spawn ssh-add /Users/vagrant/.ssh/bitrise_step_activate_ssh_key
+Identity added: /Users/vagrant/.ssh/bitrise_step_activate_ssh_key (/Users/vagrant/.ssh/bitrise_step_activate_ssh_key)
+
+[32;1mSuccess[0m
+The SSH key was saved to /Users/vagrant/.ssh/bitrise_step_activate_ssh_key
+and was successfully added to ssh-agent.
+|                                                                              |
++---+---------------------------------------------------------------+----------+
+| [32;1m✓[0m | [32;1mactivate-ssh-key[0m                                              | 5.72 sec |
++---+---------------------------------------------------------------+----------+
+
+                                          ▼
+
++------------------------------------------------------------------------------+
+| (1) git-clone                                                                |
++------------------------------------------------------------------------------+
+| id: git-clone                                                                |
+| version: 6.1.2                                                               |
+| collection: https://github.com/bitrise-io/bitrise-steplib.git                |
+| toolkit: go                                                                  |
+| time: 2022-06-14T04:25:59Z                                                   |
++------------------------------------------------------------------------------+
+|                                                                              |
+[36mINFO[0m[04:25:59]  * [32;1m[OK][0m Step dependency (git-lfs) installed, available. 
+[34;1mConfig:
+[0m- RepositoryURL: git@github.com:DamienBitrise/Bitrise-iOS-Fastlane-Sample.git
+- CloneIntoDir: /Users/vagrant/git
+- Commit: 
+- Tag: 
+- Branch: benchmark_test
+- PRDestBranch: 
+- PRID: 0
+- PRSourceRepositoryURL: 
+- PRMergeBranch: 
+- PRHeadBranch: 
+- ResetRepository: false
+- CloneDepth: 0
+- FetchTags: false
+- SubmoduleUpdateDepth: 0
+- ShouldMergePR: true
+- SparseDirectories: []
+- BuildURL: https://app.bitrise.io/build/b1080108-3ba5-4525-95b0-41b0d1687b05
+- BuildAPIToken: [REDACTED]
+- UpdateSubmodules: true
+- ManualMerge: true
+
+[34;1m$ git "init"[0m
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /Users/vagrant/git/.git/
+
+[34;1m$ git "remote" "add" "origin" "git@github.com:DamienBitrise/Bitrise-iOS-Fastlane-Sample.git"[0m
+
+[34;1m$ git "fetch" "--jobs=10" "--no-tags" "origin" "refs/heads/benchmark_test"[0m
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+remote: warning: ignoring extra bitmap file: /data/repositories/6/nw/6d/8d/e8/359196234/network.git/objects/pack/pack-feba7a019970cb8d9f443aba087771eed52ab9cb.pack        
+From github.com:DamienBitrise/Bitrise-iOS-Fastlane-Sample
+ * branch            benchmark_test -> FETCH_HEAD
+ * [new branch]      benchmark_test -> origin/benchmark_test
+
+[34;1m$ git "checkout" "benchmark_test"[0m
+Switched to a new branch 'benchmark_test'
+branch 'benchmark_test' set up to track 'origin/benchmark_test'.
+
+[34;1m$ git "merge" "origin/benchmark_test"[0m
+Already up to date.
+
+[34;1m$ git "submodule" "update" "--init" "--recursive" "--jobs=10"[0m
+
+[34;1mExporting commit details[0m
+
+[34;1m$ git "log" "-1" "--format=%an" "refs/heads/benchmark_test" &> out[0m
+=> GIT_CLONE_COMMIT_AUTHOR_NAME
+   value: Atanas Chanev
+
+[34;1m$ git "log" "-1" "--format=%ae" "refs/heads/benchmark_test" &> out[0m
+=> GIT_CLONE_COMMIT_AUTHOR_EMAIL
+   value: atanaschanev@atanaschanev-mbp.broadband
+
+[34;1m$ git "log" "-1" "--format=%H" "refs/heads/benchmark_test" &> out[0m
+=> GIT_CLONE_COMMIT_HASH
+   value: 17a50febb172b1bc181eab65b154e9b6a168a6e8
+
+[34;1m$ git "log" "-1" "--format=%s" "refs/heads/benchmark_test" &> out[0m
+=> GIT_CLONE_COMMIT_MESSAGE_SUBJECT
+   value: Removed cache steps
+
+[34;1m$ git "log" "-1" "--format=%b" "refs/heads/benchmark_test" &> out[0m
+=> GIT_CLONE_COMMIT_MESSAGE_BODY
+   value: 
+
+[34;1m$ git "log" "-1" "--format=%cn" "refs/heads/benchmark_test" &> out[0m
+=> GIT_CLONE_COMMIT_COMMITER_NAME
+   value: Atanas Chanev
+
+[34;1m$ git "log" "-1" "--format=%ce" "refs/heads/benchmark_test" &> out[0m
+=> GIT_CLONE_COMMIT_COMMITER_EMAIL
+   value: atanaschanev@atanaschanev-mbp.broadband
+
+[34;1m$ git "rev-list" "HEAD" "--count" &> out[0m
+=> GIT_CLONE_COMMIT_COUNT
+   value: 4
+
+[32;1mSuccess[0m
+|                                                                              |
++---+---------------------------------------------------------------+----------+
+| [32;1m✓[0m | [32;1mgit-clone[0m                                                     | 3.47 sec |
++---+---------------------------------------------------------------+----------+
+
+                                          ▼
+
++------------------------------------------------------------------------------+
+| (2) xcode-test                                                               |
++------------------------------------------------------------------------------+
+| id: xcode-test                                                               |
+| version: 4.2.0                                                               |
+| collection: https://github.com/bitrise-io/bitrise-steplib.git                |
+| toolkit: go                                                                  |
+| time: 2022-06-14T04:26:03Z                                                   |
++------------------------------------------------------------------------------+
+|                                                                              |
+[36mINFO[0m[04:26:03]  * [32;1m[OK][0m Step dependency (xcode) installed, available. 
+[36mINFO[0m[04:26:03]  * [32;1m[OK][0m Step dependency (go) installed, available. 
+[34;1mInput:
+[0m- project_path: BitriseTest.xcodeproj
+- scheme: BitriseTest
+- destination: platform=iOS Simulator,name=iPhone 8,OS=latest
+- test_plan: <unset>
+- test_repetition_mode: none
+- maximum_test_repetitions: 3
+- relaunch_tests_for_each_repetition: false
+- should_retry_test_on_fail: false
+- xcconfig_content: COMPILER_INDEX_STORE_ENABLE = NO
+- perform_clean_action: false
+- xcodebuild_options: -parallel-testing-worker-count 2
+- log_formatter: xcpretty
+- xcpretty_options: --color --report html --output "/Users/vagrant/deploy/xcode-test-results-BitriseTest.html"
+- cache_level: swift_packages
+- verbose_log: false
+- collect_simulator_diagnostics: never
+- headless_mode: true
+- BITRISE_DEPLOY_DIR: /Users/vagrant/deploy
+
+- xcodebuildVersion: Xcode 13.3.1 (Build version 13E500a)
+[34;1mSimulator infos[0m
+* simulator_name: iPhone 8, version: iOS 15.4, UDID: F18BB46E-6BAD-4B8A-BADE-9746E8B32CA0, status: Shutdown
+
+[34;1mChecking if output tool (xcpretty) is installed[0m
+- xcpretty version: 0.3.0
+
+[32;1mRunning the tests...[0m
+$ set -o pipefail && xcodebuild "-project" "/Users/vagrant/git/BitriseTest.xcodeproj" "-scheme" "BitriseTest" "test" "-destination" "id=F18BB46E-6BAD-4B8A-BADE-9746E8B32CA0" "-resultBundlePath" "/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/XCUITestOutput2230338276/Test-BitriseTest.xcresult" "-xcconfig" "/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/1148938388/temp.xcconfig" "-parallel-testing-worker-count" "2" | xcpretty "--color" "--report" "html" "--output" "/Users/vagrant/deploy/xcode-test-results-BitriseTest.html"
+
+[33m▸[0m [39;1mCompiling[0m ContentView.swift
+[33m▸[0m [39;1mCompiling[0m BitriseTestApp.swift
+[33m▸[0m [39;1mLinking[0m BitriseTest
+[33m▸[0m [39;1mCompiling[0m BitriseTestUITests.swift
+[33m▸[0m [39;1mProcessing[0m Info.plist
+[33m▸[0m [39;1mProcessing[0m Info.plist
+[33m▸[0m [39;1mCompiling[0m BitriseTestTests.swift
+[33m▸[0m [39;1mLinking[0m BitriseTestTests
+[33m▸[0m [39;1mTouching[0m BitriseTestTests.xctest (in target 'BitriseTestTests' from project 'BitriseTest')
+[33m▸[0m [39;1mTouching[0m BitriseTest.app (in target 'BitriseTest' from project 'BitriseTest')
+[33m▸[0m [39;1mProcessing[0m Info.plist
+[33m▸[0m [39;1mLinking[0m BitriseTestUITests
+[33m▸[0m [39;1mTouching[0m BitriseTestUITests.xctest (in target 'BitriseTestUITests' from project 'BitriseTest')
+[39;1mAll tests[0m
+Test Suite [39;1mBitriseTestUITests.xctest[0m started
+[39;1mBitriseTestUITests[0m
+    [32;1m✓[0m testExample ([31m3.477[0m seconds)
+    [31m✗[0m testLaunchPerformance, Received unexpected number of metrics: 0 in iteration with index 1. Got 1 in iteration with index 0
+
+
+BitriseTestUITests.BitriseTestUITests
+  testLaunchPerformance, [31mReceived unexpected number of metrics: 0 in iteration with index 1. Got 1 in iteration with index 0[0m
+  [36m/Users/vagrant/git/BitriseTestUITests/BitriseTestUITests.swift:37[0m
+  ```
+[38;5;230m            [39m[38;5;67;04m// This measures how long it takes to launch your application.[39;00m[38;5;230m
+[38;5;230m            [39m[38;5;153mmeasure[39m[38;5;87m([39m[38;5;153;01mmetrics[39;00m[38;5;87m:[39m[38;5;230m [39m[38;5;87m[[39m[38;5;155;01mXCTApplicationLaunchMetric[39;00m[38;5;87m()])[39m[38;5;230m [39m[38;5;87m{[39m[38;5;230m
+[38;5;230m                [39m[38;5;155;01mXCUIApplication[39;00m[38;5;87m()[39m[38;5;87m.[39m[38;5;153mlaunch[39m[38;5;87m()[39m[38;5;230m
+[38;5;230m[39m  ```
+
+
+[31m	 Executed 2 tests, with 1 failure (0 unexpected) in 81.464 (81.467) seconds
+[0m
+[39;1mAll tests[0m
+Test Suite [39;1mBitriseTestTests.xctest[0m started
+[39;1mBitriseTestTests[0m
+    [32;1m✓[0m testExample (0.002 seconds)
+    [33m◷[0m testPerformanceExample measured (0.000 seconds)
+    [32;1m✓[0m testPerformanceExample ([31m0.272[0m seconds)
+
+
+[32;1m	 Executed 2 tests, with 0 failures (0 unexpected) in 0.274 (0.276) seconds
+[0m
+Exit code:  65
+[31;1m
+Last lines of the build log:[0m
+/Users/vagrant/git/BitriseTestTests/BitriseTestTests.swift:28: Test Case '-[BitriseTestTests.BitriseTestTests testPerformanceExample]' measured [Time, seconds] average: 0.000, relative standard deviation: 231.032%, values: [0.000328, 0.000017, 0.000010, 0.000009, 0.000009, 0.000009, 0.000008, 0.000008, 0.000008, 0.000008], performanceMetricID:com.apple.XCTPerformanceMetric_WallClockTime, baselineName: "", baselineAverage: , polarity: prefers smaller, maxPercentRegression: 10.000%, maxPercentRelativeStandardDeviation: 10.000%, maxRegression: 0.100, maxStandardDeviation: 0.100
+Test Case '-[BitriseTestTests.BitriseTestTests testPerformanceExample]' passed (0.272 seconds).
+Test Suite 'BitriseTestTests' passed at 2022-06-14 04:28:34.850.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.274 (0.275) seconds
+Test Suite 'BitriseTestTests.xctest' passed at 2022-06-14 04:28:34.850.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.274 (0.276) seconds
+Test Suite 'All tests' passed at 2022-06-14 04:28:34.851.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.274 (0.277) seconds
+2022-06-14 04:28:47.849 xcodebuild[1713:10322] [MT] IDETestOperationsObserverDebug: 142.229 elapsed -- Testing started completed.
+2022-06-14 04:28:47.849 xcodebuild[1713:10322] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2022-06-14 04:28:47.849 xcodebuild[1713:10322] [MT] IDETestOperationsObserverDebug: 142.229 sec, +142.229 sec -- end
+
+Test session results, code coverage, and logs:
+	/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/XCUITestOutput2230338276/Test-BitriseTest.xcresult
+
+Failing tests:
+	BitriseTestUITests:
+		BitriseTestUITests.testLaunchPerformance()
+
+** TEST FAILED **
+[33;1mIf you can't find the reason of the error in the log, please check the xcodebuild_test.log.[0m
+[34;1m[35;1m
+The log file is stored in $BITRISE_DEPLOY_DIR, and its full path
+is available in the $BITRISE_XCODEBUILD_TEST_LOG_PATH environment variable.
+
+If you have the Deploy to Bitrise.io step (after this step),
+that will attach the file to your build as an artifact![0m[0m
+
+[33;1mXcode Test command exit code: 65[0m
+[31;1mXcode Test command failed: exit status 65[0m
+
+[34;1mExporting test results[0m
+[32;1m$ cp "-a" "/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/XCUITestOutput2230338276/Test-BitriseTest.xcresult" "/var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/test_results157877557/test_result288599830/BitriseTest/"[0m
+[31;1mRun: exit status 65[0m
+|                                                                              |
++---+---------------------------------------------------------------+----------+
+| [31;1mx[0m | [31;1mxcode-test (exit code: 1)[0m                                     | 2.9 min  |
++---+---------------------------------------------------------------+----------+
+| Issue tracker: https://github.com/bitrise-steplib/steps-xcode-test/issues    |
+| Source: https://github.com/bitrise-steplib/steps-xcode-test                  |
++---+---------------------------------------------------------------+----------+
+
+                                          ▼
+
++------------------------------------------------------------------------------+
+| (3) deploy-to-bitrise-io                                                     |
++------------------------------------------------------------------------------+
+| id: deploy-to-bitrise-io                                                     |
+| version: 2.0.8                                                               |
+| collection: https://github.com/bitrise-io/bitrise-steplib.git                |
+| toolkit: go                                                                  |
+| time: 2022-06-14T04:28:55Z                                                   |
++------------------------------------------------------------------------------+
+|                                                                              |
+[34;1mConfig:
+[0m- BuildURL: https://app.bitrise.io/build/b1080108-3ba5-4525-95b0-41b0d1687b05
+- APIToken: [REDACTED]
+- IsCompress: false
+- ZipName: 
+- DeployPath: /Users/vagrant/deploy
+- NotifyUserGroups: everyone
+- NotifyEmailList: 
+- IsPublicPageEnabled: true
+- PublicInstallPageMapFormat: {{range $index, $element := .}}{{if $index}}|{{end}}{{$element.File}}=>{{$element.URL}}{{end}}
+- PermanentDownloadURLMapFormat: {{range $index, $element := .}}{{if $index}}|{{end}}{{$element.File}}=>{{$element.URL}}{{end}}
+- BuildSlug: b1080108-3ba5-4525-95b0-41b0d1687b05
+- TestDeployDir: /var/folders/7s/1sys58lx5s95dy1_n6747jnm0000gn/T/test_results157877557
+- AppSlug: 0285f0566059b103
+- AddonAPIBaseURL: [REDACTED]
+- AddonAPIToken: [REDACTED]
+- DebugMode: false
+- BundletoolVersion: 1.8.1
+
+
+[34;1mDeploying the content of the Deploy directory separately[0m
+
+[34;1mList of files to deploy[0m
+- /Users/vagrant/deploy/Test-BitriseTest.xcresult.zip
+- /Users/vagrant/deploy/xcode-test-results-BitriseTest.html
+- /Users/vagrant/deploy/xcodebuild_test.log
+
+[34;1mDeploying files[0m
+
+[32;1mUploading file: /Users/vagrant/deploy/Test-BitriseTest.xcresult.zip[0m
+creating artifact
+  file size: 30MB
+uploading artifact
+finishing artifact
+
+[32;1mUploading file: /Users/vagrant/deploy/xcode-test-results-BitriseTest.html[0m
+creating artifact
+  file size: 10579B
+uploading artifact
+finishing artifact
+
+[32;1mUploading file: /Users/vagrant/deploy/xcodebuild_test.log[0m
+creating artifact
+  file size: 133043B
+uploading artifact
+finishing artifact
+
+[32;1mSuccess[0m
+You can find the Artifact on Bitrise, on the Build's page: https://app.bitrise.io/build/b1080108-3ba5-4525-95b0-41b0d1687b05
+A map of deployed files and their permanent download urls is now available in the Environment Variable: BITRISE_PERMANENT_DOWNLOAD_URL_MAP (value: Test-BitriseTest.xcresult.zip=>https://app.bitrise.io/artifact/c4713b81574e6dd0/download|xcode-test-results-BitriseTest.html=>https://app.bitrise.io/artifact/9153321056655f96/download|xcodebuild_test.log=>https://app.bitrise.io/artifact/d5743f70be5f150e/download)
+
+
+[34;1mUpload test results[0m
+Maximum parallelism: 24.
+Summaries Count: 1
+[04:29:00] Generating test suite [BitriseTestUITests] (2 tests) - DONE 123.776063ms
+[04:29:00] Generating test suite [BitriseTestTests] (2 tests) - DONE 26.751529ms
+- uploading (1) test results
+[32;1mSuccess[0m
+|                                                                              |
++---+---------------------------------------------------------------+----------+
+| [32;1m✓[0m | [32;1mdeploy-to-bitrise-io[0m                                          | 7.20 sec |
++---+---------------------------------------------------------------+----------+
+
+                                          ▼
+
+
+[34;1mSwitching to workflow:[0m gen2_elitexl_xcode_13_3
+
+
+
++------------------------------------------------------------------------------+
+|                               bitrise summary                                |
++---+---------------------------------------------------------------+----------+
+|   | title                                                         | time (s) |
++---+---------------------------------------------------------------+----------+
+| [32;1m✓[0m | [32;1mactivate-ssh-key[0m                                              | 5.72 sec |
++---+---------------------------------------------------------------+----------+
+| [32;1m✓[0m | [32;1mgit-clone[0m                                                     | 3.47 sec |
++---+---------------------------------------------------------------+----------+
+| [31;1mx[0m | [31;1mxcode-test (exit code: 1)[0m                                     | 2.9 min  |
++---+---------------------------------------------------------------+----------+
+| Issue tracker: https://github.com/bitrise-steplib/steps-xcode-test/issues    |
+| Source: https://github.com/bitrise-steplib/steps-xcode-test                  |
++---+---------------------------------------------------------------+----------+
+| [32;1m✓[0m | [32;1mdeploy-to-bitrise-io[0m                                          | 7.20 sec |
++---+---------------------------------------------------------------+----------+
+| Total runtime: 3.1 min                                                       |
++------------------------------------------------------------------------------+
+
+[34;1m[0m
+[34;1mSubmitting anonymized usage information...[0m
+[34;1mFor more information visit:[0m
+[34;1mhttps://github.com/bitrise-io/bitrise-plugins-analytics/blob/master/README.md[0m
+
+[31;1mBitrise build failed (exit code: 1)[0m
+exit status 1

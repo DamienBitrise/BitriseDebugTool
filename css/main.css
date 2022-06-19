@@ -1,0 +1,439 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    font-family: "Helvetica";
+    margin: 0;
+    padding: 0;
+}
+
+.page{
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bitriseLabel {
+    margin: 15px 0 10px 0;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    color: #492f5c;
+}
+
+.bitriseButton{
+    border-color: #683d87;
+    color: white;
+    background-image: linear-gradient(to top, #450674, #6c0eb2);
+    width: 120px;
+    margin: 12px 18px;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: "TT Norms Pro", sans-serif;
+    -webkit-transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+    -moz-transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+    -o-transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+    transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+}
+
+.bitriseButtonSmall{
+    border-color: #683d87;
+    color: white;
+    background-image: linear-gradient(to top, #450674, #6c0eb2);
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid;
+    padding: 2px 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "TT Norms Pro", sans-serif;
+    -webkit-transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+    -moz-transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+    -o-transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+    transition: border-color .2s,opacity .2s,color .2s,background-color .2s;
+}
+
+.bitriseButtonWide{
+    width: 200px;
+    margin: 0px;
+    margin-top: 4px;
+}
+
+.bitriseSelect{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 7px 12px;
+    padding-right: 32px;
+    text-align: left;
+    font-size: 16px;
+    -webkit-transition: background-color .2s;
+    -moz-transition: background-color .2s;
+    -o-transition: background-color .2s;
+    transition: background-color .2s;
+    background-color: white;
+    background-image: url(https://app.bitrise.io/workflow_editor/1.3.126/images/arrow-down-dark.svg);
+    background-size: 8px auto;
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.bitriseInput {
+    overflow: hidden;
+    overflow-wrap: break-word;
+    resize: horizontal;
+    height: 35px;
+    -webkit-align-self: stretch;
+    align-self: stretch;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: inline-block;
+    width: 150px;
+    padding: 0px 14px;
+    height: 36px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "SourceCodePro", monospace;
+}
+
+#myKanban {
+    overflow-x: auto;
+}
+
+.editor-container{
+    height:100%;
+    width:100%;
+    min-height:100%;
+    min-width:100%;
+}
+
+.kanban-container {
+    margin: 20px;
+    margin-top: 20px;
+}
+
+.success {
+    background: #00b961;
+}
+
+.info {
+    background: #2a92bf;
+}
+
+.warning {
+    background: #f4ce46;
+}
+
+.error {
+    background: #fb7d44;
+}
+
+.white {
+    background: rgb(241, 241, 241);
+}
+
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-button {
+    display: block;
+    width: 52px;
+    margin-bottom: 8px;
+    border: 1px solid #616161;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    line-height: 12px;
+}
+
+.delete {
+    border: 1px solid #616161;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    line-height: 12px;
+    float: right;
+}
+
+#myKanban{
+    width: 50% !important;
+    height: 100%;
+    position: relative;
+    display: inline;
+    border: 1px solid rgb(204, 204, 204);
+}
+#yaml{
+    width: 50%;
+    height: 100%;
+    position: relative;
+    display: inline;
+}
+#source{
+    width: 100%;
+    height: 100%;
+    display: block !important;
+}
+
+select{
+    width: 100%;
+}
+
+.controls-container{
+    margin-top: 8px;
+    margin-left: 20px;
+}
+.controls{
+    z-index: 1;
+}
+
+.top-controls{
+    white-space: nowrap;
+    z-index: 1;
+}
+
+select{
+    display:inline-block;
+    width: 150px;
+}
+label {
+    display: inline-block;
+}
+
+.kanban-item{
+    padding: 12px;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    border-color: rgb(204, 204, 204);
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #f8f8f8;
+    color: rgb(53, 29, 72);
+}
+
+.kanban-board-header{
+    border-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.kanban-item > div{
+    display: inline-block;
+}
+
+.kanban-item > div:nth-child(2){
+    width: 120px;
+}
+
+.workflow-title{
+    width: 100px;
+    font-size: 14px;
+    overflow:hidden;
+    word-break:break-all;
+    white-space:normal;
+    display: inline-block;
+}
+
+.workflow-delete{
+    display: inline-block;
+}
+
+.kanban-board {
+    background-color: #fff;
+    border-radius: 8px;
+    border: solid 1px #ccc;
+}
+
+.kanban-board .kanban-drag {
+    padding: 12px;
+}
+
+.kanban-title-board{
+    color: #777;
+    font-weight: normal !important;
+}
+
+.drag_handler_icon, .drag_handler_icon:before, .drag_handler_icon:after {
+    width: 20px;
+    background: #666;
+}
+
+#errors{
+    color: red;
+    font-size: 14px;
+}
+
+.flex-container {
+    display: flex;
+    height: calc(100% - 74px);
+}
+
+.flex-child {
+    flex: 1;
+}  
+
+.header{
+    background-color: rgb(236, 236, 236);
+    border-radius: 8px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+    border: solid 1px rgb(204, 204, 204);
+    padding-bottom: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 12px;
+    height: 74px;
+}
+
+.header-right{
+    float: right;
+    margin-right: 20px;
+}
+.header-info{
+    float: left;
+}
+.block{
+    display: block;
+}
+
+.bitriseFont{
+    color: rgb(53, 29, 72);
+    font-family: "TT Norms Pro", sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0px;
+}
+.bitriseFontSmall {
+    color: rgb(97, 97, 97);
+    font-family: "TT Norms Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    -webkit-box-direction: normal;
+    -webkit-font-smoothing: antialiased;
+    line-height: 24px;
+    margin: 0px;
+}
+
+@font-face {
+    font-family: "TTNorms";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Light.woff) format("woff");
+    font-weight: 100
+}
+
+@font-face {
+    font-family: "TTNorms";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Light.woff) format("woff");
+    font-weight: 200
+}
+
+@font-face {
+    font-family: "TTNorms";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Light.woff) format("woff");
+    font-weight: 300
+}
+
+@font-face {
+    font-family: "TTNorms";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Normal.woff) format("woff");
+    font-weight: 400
+}
+
+@font-face {
+    font-family: "TTNorms";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Medium.woff) format("woff");
+    font-weight: 500
+}
+
+@font-face {
+    font-family: "TTNorms";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Bold.woff) format("woff");
+    font-weight: 700
+}
+
+@font-face {
+    font-family: "TTNorms";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Bold.woff) format("woff");
+    font-weight: 900
+}
+
+@font-face {
+    font-family: "TT Norms Pro";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Light.woff) format("woff");
+    font-weight: 100
+}
+
+@font-face {
+    font-family: "TT Norms Pro";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Light.woff) format("woff");
+    font-weight: 200
+}
+
+@font-face {
+    font-family: "TT Norms Pro";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Light.woff) format("woff");
+    font-weight: 300
+}
+
+@font-face {
+    font-family: "TT Norms Pro";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Normal.woff) format("woff");
+    font-weight: 400
+}
+
+@font-face {
+    font-family: "TT Norms Pro";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Medium.woff) format("woff");
+    font-weight: 500
+}
+
+@font-face {
+    font-family: "TT Norms Pro";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Bold.woff) format("woff");
+    font-weight: 700
+}
+
+@font-face {
+    font-family: "TT Norms Pro";
+    src: url(https://app.bitrise.io/workflow_editor/1.3.126/fonts/TT_Norms_Pro_Bold.woff) format("woff");
+    font-weight: 900
+}

@@ -1,0 +1,57 @@
+/* Base Colors */
+.ansi_30m {
+	color: rgb(0, 0, 0) !important;
+}
+.ansi_31m {
+	color: rgb(255, 0, 0) !important;
+}
+.ansi_32m {
+	color: rgb(0, 128, 0) !important;
+}
+.ansi_33m {
+	color: rgb(255, 255, 0) !important;
+}
+.ansi_34m {
+	color: rgb(64, 64, 255) !important;
+}
+.ansi_35m {
+	color: rgb(255, 0, 255) !important;
+}
+.ansi_36m {
+	color: rgb(0, 255, 255) !important;
+}
+.ansi_37m {
+	color: rgb(255, 255, 255) !important;
+}
+.ansi_39m {
+	color: rgb(128, 128, 128) !important;
+}
+
+/* Lighter Colors with ;1m */
+.ansi_30m1m {
+	color: rgb(64, 64, 64) !important;
+}
+.ansi_31m1m {
+	color: rgb(255, 64, 64) !important;
+}
+.ansi_32m1m {
+	color: rgb(64, 128, 64) !important;
+}
+.ansi_33m1m {
+	color: rgb(255, 255, 64) !important;
+}
+.ansi_34m1m {
+	color: rgb(128, 128, 255) !important;
+}
+.ansi_35m1m {
+	color: rgb(255, 64, 255) !important;
+}
+.ansi_36m1m {
+	color: rgb(64, 255, 255) !important;
+}
+.ansi_37m1m {
+	color: rgb(255, 255, 255) !important;
+}
+.ansi_39m1m {
+	color: rgb(192, 192, 192) !important;
+}
