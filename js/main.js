@@ -5,7 +5,7 @@ window.onload = async function () {
   populateStepSelect();
   addEventListeners();
   hasAPIKey();
-  getAPIKey('password');
+  //getAPIKey('password');
 };
 
 function populateStepSelect(){
