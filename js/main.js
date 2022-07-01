@@ -4,7 +4,7 @@ window.onload = async function () {
   await loadEditor();
   populateStepSelect();
   addEventListeners();
-  hasAPIKey();
+//   hasAPIKey();
   //getAPIKey('password');
 };
 
@@ -148,7 +148,7 @@ function addEventListeners(){
     }).show();
   });
 
-  var loginModalBtn = document.getElementById("loginBtn");
+  /*var loginModalBtn = document.getElementById("loginBtn");
   loginModalBtn.addEventListener("click", function() {
     if(VAULT_STATE == 0){ // NO ACCOUNT
       let api_key = document.getElementById('signup_api_key').value;
@@ -194,7 +194,7 @@ function addEventListeners(){
     if (confirm(text) == true) {
       deleteAPIKey();
     } 
-  });
+  });*/
 
   var leftUrlElm = document.getElementById("left_url");
   leftUrlElm.addEventListener("input", async function() {
