@@ -94,7 +94,7 @@ body {
     -o-transition: background-color .2s;
     transition: background-color .2s;
     background-color: white;
-    background-image: url(/images/arrow-down-dark.svg);
+    background-image: url(../images/arrow-down-dark.svg);
     background-size: 8px auto;
     background-position: right 12px center;
     background-repeat: no-repeat;
