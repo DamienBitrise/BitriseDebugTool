@@ -55,8 +55,8 @@ async function loadEditor(){
     // leftOriginal = await getText('/logs/success.txt');
     // rightOriginal = await getText('/logs/failure.txt');
     // Production
-    leftOriginal = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/success.txt');
-    rightOriginal = await getText('https://damienbitrise.github.io/BitriseDebugTool/logs/failure.txt');
+    leftOriginal = await getText('https://damienbitrise.github.io/LogDiffer/logs/success.txt');
+    rightOriginal = await getText('https://damienbitrise.github.io/LogDiffer/logs/failure.txt');
     left = '' + leftOriginal;
     right = '' + rightOriginal;
     leftSteps = getSteps(left);
